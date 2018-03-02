@@ -6,7 +6,7 @@ library(topicmodels)
 
 # read data ---------------------------------------------------------------
 
-data_ori = read_csv("data.csv")
+data_ori = read_csv("../../data/li_first10000forR.csv")
 
 data_df = data_frame(line = 1:nrow(data_ori),
                      text = data_ori$text, 
@@ -21,14 +21,49 @@ set.seed(615)
 cv_index = sample_n(cv_df, nrow(data_df), replace = T)
 
 
+# variance ----------------------------------------------------------------
+
+myvar = function(data, thisword, counts){
+  data_useful <- data %>%
+    filter(word == thisword) %>%
+    count(stars)
+  names(data_useful)[2] = "n"
+  my_star = tibble(stars = c(1:5), n = rep(0, 5))
+  data_useful2 <- rbind(data_useful, my_star) %>%
+    group_by(stars) %>%
+    summarise(n = max(n)) %>%
+    mutate(xx = n/counts) %>%
+    mutate(xx = xx/sum(xx))
+  if(is.na(var(data_useful2$xx))){
+    return(0)
+  }else{
+    return(var(data_useful2$xx))
+  }
+}
 # not dict ----------------------------------------------------------------
 
 data("stop_words")
-add_not = function(x){
-  return(paste("not_", x[1], sep = ""))
+
+## check stop words important or not
+
+data_not <- data_df %>%
+  unnest_tokens(word, text)
+var_not = data_frame(word = stop_words$word, var = 0)
+count <- data_not %>%
+  count(stars)
+  
+for(i in 1:nrow(stop_words)){
+  var_not$var[i] = myvar(data_not, stop_words$word[i], count$n)
 }
-my_stop <- stop_words 
-my_stop$word = apply(my_stop, 1, add_not)
+
+index_not = which(var_not$var>0.01)
+my_stop = stop_words[-index_not,]
+
+add_not = function(x){
+  return(paste("not", x[1], sep = ""))
+}
+my_stop2 <- my_stop
+my_stop2$word = apply(my_stop, 1, add_not)
 
 
 # mode fun ----------------------------------------------------------------
@@ -40,8 +75,12 @@ Mode <- function(x) {
 
 # split data --------------------------------------------------------------
 
-var_sh = 1/300
+var_sh = 0.01
+n_sh = 100
+my_sh = c(1.45, 2.92, 3.6, 4.15)
 mse = numeric(cv_n)
+pred_all = numeric(nrow(cv_index))
+pred_ori = numeric(nrow(cv_index))
 for(ii in 1:cv_n){
   split <- which(cv_index$index != ii)
   train <- data_df[split,]
@@ -55,10 +94,10 @@ for(ii in 1:cv_n){
   # delete stop word --------------------------------------------------------
   
   
-  
-  # tidy_train <- tidy_train %>%
-  #   anti_join(stop_words, by = "word") %>%
-  #   anti_join(my_stop, by = "word")
+
+  tidy_train <- tidy_train %>%
+    anti_join(my_stop2, by = "word") %>%
+    anti_join(my_stop2, by = "word")
   
   
   # delete rear word --------------------------------------------------------
@@ -70,7 +109,7 @@ for(ii in 1:cv_n){
   
   major <- tidy_train %>%
     count(word, sort = T) %>%
-    filter(n > 100)
+    filter(n > n_sh)
   
   tidy_train <- tidy_train %>%
     inner_join(major, by = "word")
@@ -82,18 +121,8 @@ for(ii in 1:cv_n){
   tidy_train_count <- tidy_train %>%
     count(stars)
   for(i in 1:nrow(word_var)){
-    this_word = word_var$word[i]
-    x <- tidy_train %>%
-      filter(word == this_word) %>%
-      count(stars) 
-    my_star = tibble(stars = c(1:5), nn = rep(0, 5))
-    x2 <- rbind(x, my_star) %>%
-      group_by(stars) %>%
-      summarise(nn = max(nn)) %>%
-      mutate(xx = nn/tidy_train_count$nn) %>%
-      mutate(xx = xx/sum(xx))
-    word_var$var[i] = var(x2$xx)
-    # cat(i)
+    word_var$var[i] = myvar(tidy_train, word_var$word[i], tidy_train_count$nn)
+    
   }
   
   word_var <- word_var %>%
@@ -181,14 +210,78 @@ for(ii in 1:cv_n){
   
   cv <- cv.glmnet(train2[,1:n2], train2[,n2+1],nfolds=5)
   pred <- predict(fit, test2[,1:n2],type="response", s=cv$lambda.min)
-  
-  pred2 = round(pred)
-  pred2[which(pred2>5)]=5
-  pred2[which(pred2<0)]=0
-  mse[ii] = sum((round(pred)-true_value)^2)
+  pred_ori[-split] = pred
   print(ii)
 }
-sum(mse)/n1
 
 
+# mse ---------------------------------------------------------------------
 
+mymse2 = function(sh, pred_ori){
+  pred_new = rep(0, length(pred_ori))
+  pred_new[which(pred_ori<sh[1])] = 1
+  pred_new[which(pred_ori>=sh[1] & pred_ori<sh[2])] = 2
+  pred_new[which(pred_ori>=sh[2] & pred_ori<sh[3])] = 3
+  pred_new[which(pred_ori>=sh[3] & pred_ori<sh[4])] = 4
+  pred_new[which(pred_ori>=sh[4])] = 5
+  return(pred_new)
+}
+pred_new = mymse2(my_sh, pred_ori)
+mse = sum((pred_new - data_df$stars)^2)/length(data_df$stars)
+
+
+# result table ------------------------------------------------------------
+
+result = tibble(
+  pred = pred_new,
+  true = data_df$stars
+)
+result_ma = tibble(
+  a = rep(0, 5),
+  b = rep(0, 5),
+  c = rep(0, 5),
+  d = rep(0, 5),
+  e = rep(0, 5)
+)
+for(i in 1:5){
+  aaa <- result %>%
+    filter(true == i) %>%
+    group_by(pred) %>%
+    summarise(n = n())
+  bbb = tibble(pred = c(1:5), n = rep(0, 5))
+  ccc <- rbind(aaa, bbb) %>%
+    group_by(pred) %>%
+    summarise(n = max(n)) 
+  result_ma[i,] = ccc$n
+}
+# system("say 完成")
+
+result_ma$accucury = 0
+for(i in 1:5){
+  result_ma$accucury[i] = as.numeric(result_ma[i,i]/sum(result_ma[i, 1:5]))
+}
+result_ma
+
+
+mse_sp = rep(0,5)
+for(i in 1:5){
+  cos = c(1:5)
+  mse_sp[i] = sum((cos-i)^2*result_ma[i,1:5])
+}
+mse_sp
+
+
+# sh ----------------------------------------------------------------------
+
+mymse = function(sh){
+  pred_new = rep(0, length(pred_ori))
+  pred_new[which(pred_ori<sh[1])] = 1
+  pred_new[which(pred_ori>=sh[1] & pred_ori<sh[2])] = 2
+  pred_new[which(pred_ori>=sh[2] & pred_ori<sh[3])] = 3
+  pred_new[which(pred_ori>=sh[3] & pred_ori<sh[4])] = 4
+  pred_new[which(pred_ori>=sh[4])] = 5
+  MSE = sum((pred_new-data_df$stars)^2)/length(data_df$stars)
+  return(MSE)
+}
+
+my_sh = optim(c(1.5,2.5,3.5,4.5),mymse)
