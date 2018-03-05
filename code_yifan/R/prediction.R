@@ -131,7 +131,7 @@ pred <- predict(fit, test_matrix, type="response", s=cv$lambda.min)
 pred_new = mypred(my_sh, pred)
 
 
-result = tibble(line = c(1:length(pred_new)),
-                pred = pred_new)
+result = tibble(Id = c(1:length(pred_new)),
+                Prediction1 = pred_new)
 
 write_csv(result, "/Users/Lyf/Desktop/result.csv")
