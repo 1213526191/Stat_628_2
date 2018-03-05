@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  4 MAR 2018 20:27
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  4 MAR 2018 20:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1825,7 +1825,14 @@ echnical note
 . <->"[FandolHei-Bold.otf]/OT:"
 . - 'bold small caps'  (bx/sc) with NFSS spec.: 
 .................................................
-(./628m2.aux)
+(./628m2.aux
+
+LaTeX Warning: Label `table:nonlin' multiply defined.
+
+
+LaTeX Warning: Label `table:nonlin' multiply defined.
+
+)
 \openout1 = `628m2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
@@ -1907,10 +1914,6 @@ LaTeX Info: Redefining \nameref on input line 25.
 \@outlinefile=\write5
 \openout5 = `628m2.out'.
 
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 25.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
@@ -1990,7 +1993,7 @@ Overfull \vbox (13.79993pt too high) detected at line 27
 [1
 
 ]
-Overfull \hbox (0.4pt too wide) in paragraph at lines 48--48
+Overfull \hbox (0.4pt too wide) in paragraph at lines 49--49
 [][]  
  []
 
@@ -1999,7 +2002,7 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 48--48
 ]
 File: date.jpeg Graphic file (type QTm)
  <use  "date.jpeg" >
-Overfull \hbox (0.4pt too wide) in paragraph at lines 56--56
+Overfull \hbox (0.4pt too wide) in paragraph at lines 57--57
 [][]  
  []
 
@@ -2009,29 +2012,29 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 56--56
 *************************************************
 * fontspec warning: "addfontfeatures-ignored"
 * 
-* \addfontfeature(s) ignored on line 82; it cannot be used with a font that
+* \addfontfeature(s) ignored on line 83; it cannot be used with a font that
 * wasn't selected by a fontspec command.
 * 
 * The current font is "\EU1/lmss/bx/n/10 ".
 * The requested feature is "Numbers={Monospaced}".
 *************************************************
-LaTeX Font Info:    Try loading font information for U+msa on input line 82.
+LaTeX Font Info:    Try loading font information for U+msa on input line 83.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 82.
+LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <10> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 82.
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 83.
 LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <7> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 82.
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 83.
 LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <5> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 82.
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 83.
 
-Overfull \hbox (0.4pt too wide) in paragraph at lines 82--82
+Overfull \hbox (0.4pt too wide) in paragraph at lines 83--83
 [][]  
  []
 
@@ -2040,19 +2043,19 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 82--82
 ]
 File: cate.jpeg Graphic file (type QTm)
  <use  "cate.jpeg" >
-Overfull \hbox (8.88922pt too wide) in paragraph at lines 90--90
+Overfull \hbox (8.88922pt too wide) in paragraph at lines 91--91
  [] 
  []
 
 
-Overfull \hbox (0.4pt too wide) in paragraph at lines 90--90
+Overfull \hbox (0.4pt too wide) in paragraph at lines 91--91
 [][]  
  []
 
 [5
 
 ]
-Overfull \hbox (0.4pt too wide) in paragraph at lines 109--109
+Overfull \hbox (0.4pt too wide) in paragraph at lines 110--110
 [][]  
  []
 
@@ -2062,14 +2065,14 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 109--109
 *************************************************
 * fontspec warning: "addfontfeatures-ignored"
 * 
-* \addfontfeature(s) ignored on line 137; it cannot be used with a font that
+* \addfontfeature(s) ignored on line 138; it cannot be used with a font that
 * wasn't selected by a fontspec command.
 * 
 * The current font is "\EU1/lmss/m/n/7 ".
 * The requested feature is "Numbers={Monospaced}".
 *************************************************
 
-Overfull \hbox (0.4pt too wide) in paragraph at lines 137--137
+Overfull \hbox (0.4pt too wide) in paragraph at lines 138--138
 [][]  
  []
 
@@ -2079,14 +2082,14 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 137--137
 *************************************************
 * fontspec warning: "addfontfeatures-ignored"
 * 
-* \addfontfeature(s) ignored on line 159; it cannot be used with a font that
+* \addfontfeature(s) ignored on line 160; it cannot be used with a font that
 * wasn't selected by a fontspec command.
 * 
 * The current font is "\EU1/lmss/bx/n/9 ".
 * The requested feature is "Numbers={Monospaced}".
 *************************************************
 
-Overfull \hbox (0.4pt too wide) in paragraph at lines 159--159
+Overfull \hbox (0.4pt too wide) in paragraph at lines 160--160
 [][]  
  []
 
@@ -2096,21 +2099,21 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 159--159
 *************************************************
 * fontspec warning: "addfontfeatures-ignored"
 * 
-* \addfontfeature(s) ignored on line 183; it cannot be used with a font that
+* \addfontfeature(s) ignored on line 184; it cannot be used with a font that
 * wasn't selected by a fontspec command.
 * 
 * The current font is "\EU1/lmss/bx/n/9 ".
 * The requested feature is "Numbers={Monospaced}".
 *************************************************
 
-Overfull \hbox (0.4pt too wide) in paragraph at lines 183--183
+Overfull \hbox (0.4pt too wide) in paragraph at lines 184--184
 [][]  
  []
 
 [9
 
 ]
-Overfull \hbox (0.4pt too wide) in paragraph at lines 201--201
+Overfull \hbox (0.4pt too wide) in paragraph at lines 202--202
 [][]  
  []
 
@@ -2119,14 +2122,14 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 201--201
 ]
 File: feateng.pdf Graphic file (type QTm)
  <use  "feateng.pdf" >
-Overfull \hbox (0.4pt too wide) in paragraph at lines 210--210
+Overfull \hbox (0.4pt too wide) in paragraph at lines 211--211
 [][]  
  []
 
 [11
 
 ]
-Overfull \hbox (0.4pt too wide) in paragraph at lines 218--218
+Overfull \hbox (0.4pt too wide) in paragraph at lines 219--219
 [][]  
  []
 
@@ -2137,7 +2140,7 @@ File: dist1_ori.png Graphic file (type QTm)
  <use  "dist1_ori.png" >
 File: dist1.png Graphic file (type QTm)
  <use  "dist1.png" >
-Overfull \hbox (0.4pt too wide) in paragraph at lines 238--238
+Overfull \hbox (0.4pt too wide) in paragraph at lines 239--239
 [][]  
  []
 
@@ -2148,7 +2151,7 @@ File: dist5_ori.png Graphic file (type QTm)
  <use  "dist5_ori.png" >
 File: dist5.png Graphic file (type QTm)
  <use  "dist5.png" >
-Overfull \hbox (30.74774pt too wide) in paragraph at lines 257--257
+Overfull \hbox (0.4pt too wide) in paragraph at lines 258--258
 [][]  
  []
 
@@ -2166,22 +2169,22 @@ Overfull \hbox (30.74774pt too wide) in paragraph at lines 257--257
 \tf@snm=\write8
 \openout8 = `628m2.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 262.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 262.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 263.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 263.
  (./628m2.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 262.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 262.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 263.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 263.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 262.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 263.
  ) 
 Here is how much of TeX's memory you used:
- 48134 strings out of 493591
- 1089171 string characters out of 6143546
+ 48138 strings out of 493591
+ 1089203 string characters out of 6143546
  1228370 words of memory out of 5000000
- 50781 multiletter control sequences out of 15000+600000
+ 50785 multiletter control sequences out of 15000+600000
  6804 words of font info for 51 fonts, out of 8000000 for 9000
  1347 hyphenation exceptions out of 8191
  71i,13n,95p,10418b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
