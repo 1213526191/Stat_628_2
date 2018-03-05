@@ -39,7 +39,7 @@ n1 = length(data_df$line)
 # feature -----------------------------------------------------------------
 
 features = read_csv("../../data/pos_neg.csv")
-NNN = sum(features$var > 0.001)
+NNN = sum(features$var > 0.005)
 major <- features[1:NNN,] %>%
   select(word)
 
@@ -57,11 +57,16 @@ tidy_train <- train %>%
   unnest_tokens(word, text)
 t2 = Sys.time()
 print(t2-t1)
+t2 = Sys.time()
+tidy_test <- test %>%
+  unnest_tokens(word, text)
+t3 = Sys.time()
+print(t3-t2)
 
-tidy_train <- tidy_train %>%
+tidy_train2 <- tidy_train %>%
   inner_join(major, by = "word") %>%
   mutate(count = 1)
-xx <- tidy_train %>%
+xx <- tidy_train2 %>%
   group_by(line) %>%
   summarise(star = mean(stars))
 w = which(!train$line   %in% xx$line)
@@ -74,33 +79,13 @@ my_tidy = tibble(
   count = rep(1, length(w))
 )
 
-tidy_train2 <- full_join(tidy_train, my_tidy, by = c("line", "stars", "word", "count")) %>%
+tidy_train3 <- full_join(tidy_train2, my_tidy, by = c("line", "stars", "word", "count")) %>%
   arrange(line)
 
-# train_dtm <- tidy_train %>%
-#   cast_dtm(line, word, count)
-
-train_matrix <- tidy_train2 %>%
-  cast_sparse(line, word, count)
-n2 = dim(train_matrix)[2]
-train_matrix2 = cbind(all_matrix, train$stars)
-fit = glmnet(train_matrix2[,1:n2], train_matrix2[,n2+1])
-cv <- cv.glmnet(train_matrix2[,1:n2], train_matrix2[,n2+1], nfolds=5)
-
-
-
-# predict -----------------------------------------------------------------
-
-t2 = Sys.time()
-tidy_test <- test %>%
-  unnest_tokens(word, text)
-t3 = Sys.time()
-print(t3-t2)
-
-tidy_test <- tidy_test %>%
+tidy_test2 <- tidy_test %>%
   inner_join(major, by = "word") %>%
   mutate(count = 1)
-xx <- tidy_test %>%
+xx <- tidy_test2 %>%
   group_by(line) %>%
   summarise(star = mean(stars))
 w = which(!test$line   %in% xx$line)
@@ -114,20 +99,47 @@ my_tidy = tibble(
 )
 
 t2 = Sys.time()
-tidy_test2 <- full_join(tidy_test, my_tidy, by = c("line", "stars", "word", "count")) %>%
+tidy_test3 <- full_join(tidy_test2, my_tidy, by = c("line", "stars", "word", "count")) %>%
   arrange(line)
 t3 = Sys.time()
 print(t3-t2)
 
 t2 = Sys.time()
-test_matrix <- tidy_test2 %>%
+test_matrix <- tidy_test3 %>%
   cast_sparse(line, word, count)
 t3 = Sys.time()
 print(t3-t2)
 
 
+train_matrix <- tidy_train3 %>%
+  cast_sparse(line, word, count)
+n2 = dim(train_matrix)[2]
+train_matrix2 = cbind(all_matrix, train$stars)
+fit = glmnet(train_matrix2[,1:n2], train_matrix2[,n2+1])
+cv <- cv.glmnet(train_matrix2[,1:n2], train_matrix2[,n2+1], nfolds=5)
+
+
+
+# predict -----------------------------------------------------------------
+
+
+
+
+
+
+
 
 pred <- predict(fit, test_matrix, type="response", s=cv$lambda.min)
+
+prop <- train %>%
+  group_by(stars) %>%
+  summarise(count = n())
+total = sum(prop$count)
+probs = cumsum(prop$count)/total
+
+my_sh = quantile(pred, probs[1:4])
+
+
 pred_new = mypred(my_sh, pred)
 
 
@@ -135,3 +147,12 @@ result = tibble(Id = c(1:length(pred_new)),
                 Prediction1 = pred_new)
 
 write_csv(result, "/Users/Lyf/Desktop/result.csv")
+
+
+prop <- train %>%
+  group_by(stars) %>%
+  summarise(count = n())
+
+total = sum(prop$count)
+quantile(pred, prop$count[5]/total)
+
