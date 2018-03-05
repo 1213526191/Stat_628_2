@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  4 MAR 2018 17:05
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  4 MAR 2018 19:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1825,7 +1825,14 @@ echnical note
 . <->"[FandolHei-Bold.otf]/OT:"
 . - 'bold small caps'  (bx/sc) with NFSS spec.: 
 .................................................
-(./628m2.aux)
+(./628m2.aux
+
+LaTeX Warning: Label `table:nonlin' multiply defined.
+
+
+LaTeX Warning: Label `table:nonlin' multiply defined.
+
+)
 \openout1 = `628m2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
@@ -1906,10 +1913,6 @@ LaTeX Info: Redefining \nameref on input line 25.
 (./628m2.out) (./628m2.out)
 \@outlinefile=\write5
 \openout5 = `628m2.out'.
-
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 25.
@@ -2042,7 +2045,12 @@ Overfull \hbox (0.4pt too wide) in paragraph at lines 80--80
 
 [4
 
-] [5
+]
+Overfull \hbox (0.4pt too wide) in paragraph at lines 99--99
+[][]  
+ []
+
+[5
 
 ]
 *************************************************
@@ -2159,16 +2167,16 @@ Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 252.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 252.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 252.
  ) 
 Here is how much of TeX's memory you used:
- 48148 strings out of 493591
- 1089533 string characters out of 6143546
+ 48145 strings out of 493591
+ 1089446 string characters out of 6143546
  1228370 words of memory out of 5000000
- 50793 multiletter control sequences out of 15000+600000
- 6820 words of font info for 53 fonts, out of 8000000 for 9000
+ 50792 multiletter control sequences out of 15000+600000
+ 6804 words of font info for 51 fonts, out of 8000000 for 9000
  1347 hyphenation exceptions out of 8191
  71i,13n,95p,10418b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
 

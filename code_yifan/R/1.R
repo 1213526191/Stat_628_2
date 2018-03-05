@@ -8,7 +8,7 @@ library(glmnet)
 
 # read data ---------------------------------------------------------------
 
-data_ori = read_csv("../../data/li_first100000forR.csv")
+data_ori = read_csv("../../data/random100000.csv")
 
 data_df = data_frame(line = 1:nrow(data_ori),
                      text = data_ori$text, 

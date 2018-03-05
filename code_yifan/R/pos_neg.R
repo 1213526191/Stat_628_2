@@ -77,8 +77,9 @@ word_var$expect <- apply(word_var[,1], 1, myexpect,
 t3 = Sys.time()
 print(t3-t2)
 word_var <- word_var %>%
-  arrange(desc(var)) %>%
-  filter(var>0.01)
+  arrange(desc(var))
+filename = paste("../../data/pos_neg.csv", sep = "")
+write_csv(word_var, filename)
 
 n = 1
 data_tidy2 <- data_tidy %>%

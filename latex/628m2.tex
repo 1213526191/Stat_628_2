@@ -27,23 +27,23 @@
 \maketitle
 
 \begin{frame}{Data Overview}
-\textbf{Rows in training data} 
+\textbf{Yelp trainin data} 
 
-over 1,500,000 rows with no missing values
+Over 1,500,000 rows with no missing values
 
-\textbf{Columns in training data}
-
-Stars, Text, Name, Date, City, Longitude, Latitude, Category 
+\textbf{Variables to be excluded}
 \begin{itemize}
-    \item[-] Name: over 30,000 different stores
-    \item[-] City: 671 different cities
-    \item[-] Latitude \& Longitude: repeated information as city and name
-    \item[-] Date: from Oct, 2004 to Jan, 2017, no pattern
+    \item[-] Name, City, Latitude, Longitude
+    
+    Too many different levels.
+    \item[-] Date
+    
+    No obvious difference over years.
 \end{itemize}
 
 \textbf{Variables to be used}
 
-Text, Category
+Text, Category, Stars
 \end{frame}
 
 \begin{frame}{Category: Data Description}
@@ -81,9 +81,9 @@ We used the category list provided by Yelp and divided all categories into 14 gr
 
 %2---------------------------------------------------------------------------------------
 
-\begin{frame}
-\huge{\centerline{\textbf{Data Cleaning}}}
+\begin{frame}{Data Cleaning}
 
+\center{
 \begin{enumerate}[(1)]
 
 	\item Abbreviation and Special Symbol
@@ -95,7 +95,7 @@ We used the category list provided by Yelp and divided all categories into 14 gr
 	\item Punctuation
 
 \end{enumerate}
-
+}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
