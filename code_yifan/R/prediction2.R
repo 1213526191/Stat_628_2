@@ -150,7 +150,7 @@ tidy_all <- bind_rows(tidy_test4, tidy_train4)
 
 t2 = Sys.time()
 all_matrix <- tidy_all %>%
-  cast_sparse(line, word, count)
+  cast_sparse(line, word, tf_idf)
 t3 = Sys.time()
 print(t3-t2)
 
@@ -171,7 +171,7 @@ cv <- cv.glmnet(train_matrix[,1:n2], train_matrix[,n2+1], nfolds=5)
 
 pred <- predict(fit, test_matrix[, 1:n2], type="response", s=cv$lambda.min)
 
-
+my_sh = c(1.314392, 3.028014, 3.541586, 4.148861)
 my_sh = c(1.5, 2.5, 3.5, 4.5)
 
 
