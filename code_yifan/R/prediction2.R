@@ -1,3 +1,5 @@
+# 这个是tf idf 之后的
+
 library(tidyverse)
 library(tidytext)
 library(Matrix)
@@ -138,7 +140,12 @@ print(t3-t2)
 
 tidy_train3$line = tidy_train3$line + n1
 
-tidy_all <- bind_rows(tidy_test3, tidy_train3)
+tidy_train4 <- tidy_train3 %>%
+  bind_tf_idf(word, line, count)
+tidy_test4 <- tidy_test3 %>%
+  bind_tf_idf(word, line, count)
+
+tidy_all <- bind_rows(tidy_test4, tidy_train4)
 
 
 t2 = Sys.time()
@@ -165,7 +172,7 @@ cv <- cv.glmnet(train_matrix[,1:n2], train_matrix[,n2+1], nfolds=5)
 pred <- predict(fit, test_matrix[, 1:n2], type="response", s=cv$lambda.min)
 
 
-
+my_sh = c(1.5, 2.5, 3.5, 4.5)
 
 
 pred_new = mypred(my_sh, pred)
