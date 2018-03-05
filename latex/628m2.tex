@@ -36,66 +36,43 @@ Over 1,500,000 rows with no missing values
     \item[-] Name, City, Latitude, Longitude
     
     Too many different levels.
-    \item[-] Date
     
-    No obvious difference over years.
+    City: over 600 levels
+    
+    Name: over 30,000 levels
 \end{itemize}
 
 \textbf{Variables to be used}
 
-Text, Category, Stars
+Text, Category, Stars, Date
 \end{frame}
 
-\begin{frame}{Category: Data Description}
-\textbf{Category}
-
-\begin{table}
-\centering
-\label{my-label}
-\begin{tabular}{c|c}
-\hline
-stars & category          \\
-\hline
-2     & {[}'Golf', 'Active Life', 'Hotels', 'Restaurants'{]}    \\
-\hline
-4     & {[}'Restaurants', 'Mexican', 'Fast Food'{]} \\
-\hline
-\end{tabular}
-\end{table}
-\begin{itemize}
-    \item[-] multiple categories for a review
-    \item[-] over 600 different categories
-\end{itemize}
-\textbf{Grouping categories}
-
-We used the category list provided by Yelp and divided all categories into 14 groups. 
-\end{frame}
-
-\begin{frame}{Category: Data Description}
+\begin{frame}{Date: Date Description}
+\textbf{Date}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.42]{cate.jpeg}
-    
+    \includegraphics[scale=0.3]{date.jpeg}
 \end{figure}    
+    
 \end{frame}
 
 %2---------------------------------------------------------------------------------------
 
 \begin{frame}{Data Cleaning}
 
-\center{
-\begin{enumerate}[(1)]
 
-	\item Abbreviation and Special Symbol
+\begin{itemize}
 
-	\item Non-English
+	\item[1] Abbreviation and Special Symbol
 
-	\item Negative Sentences
+	\item[2] Non-English
+
+	\item[3] Negative Sentences
 	
-	\item Punctuation
+	\item[4] Punctuation
 
-\end{enumerate}
-}
+\end{itemize}
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------
