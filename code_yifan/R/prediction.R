@@ -58,7 +58,7 @@ add_not = function(x){
 #  read data --------------------------------------------------------------
 
 train_ori = read_csv("../../data/random100000w.csv")
-test_ori = read_csv("/Users/Lyf/OneDrive/study/WISC/2017_spring/Stat_628/hw2/test.csv")
+test_ori = read_csv("/Users/Lyf/OneDrive/study/WISC/2017_spring/Stat_628/hw2/test2.csv")
 
 train = data_frame(line = 1:nrow(train_ori),
                      text = train_ori$text, 
@@ -138,6 +138,11 @@ print(t3-t2)
 
 tidy_train3$line = tidy_train3$line + n1
 
+# read data ---------------------------------------------------------------
+
+tidy_train3 = read_csv("/Users/Lyf/Desktop/tidy_train_tfidf_n100.csv")
+tidy_test3 = read_csv("/Users/Lyf/Desktop/tidy_test_tfidf_n100.csv")
+
 tidy_all <- bind_rows(tidy_test3, tidy_train3)
 
 
@@ -146,7 +151,12 @@ all_matrix <- tidy_all %>%
   cast_sparse(line, word, count)
 t3 = Sys.time()
 print(t3-t2)
+n1 = 1016664
 
+train_ori = read_csv("../../data/random100000w.csv")
+train = data_frame(line = 1:nrow(train_ori),
+                   text = train_ori$text, 
+                   stars = train_ori$stars)
 starss = c(rep(0, n1), train$stars)
 
 n2 = dim(all_matrix)[2]
@@ -165,7 +175,7 @@ cv <- cv.glmnet(train_matrix[,1:n2], train_matrix[,n2+1], nfolds=5)
 pred <- predict(fit, test_matrix[, 1:n2], type="response", s=cv$lambda.min)
 
 
-
+my_sh = c(1.314392, 3.028014, 3.541586, 4.148861)
 
 
 pred_new = mypred(my_sh, pred)

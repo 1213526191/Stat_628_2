@@ -278,8 +278,7 @@ var_sh = 0.001
 
 tidy_all <- data_df %>%
   unnest_tokens(word, text)
-word_en = apply(tidy_all[,3], 1, gsub, pattern = "[^a-zA-Z]", replacement = "")
-tidy_all$word = word_en
+
 
 count <- tidy_all %>%
   count(stars)
