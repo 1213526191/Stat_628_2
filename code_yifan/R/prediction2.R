@@ -10,22 +10,13 @@ library(glmnet)
 
 # variance ----------------------------------------------------------------
 
-myvar = function(words, data, counts){
-  data_useful <- data %>%
-    filter(word == words) %>%
-    count(stars)
-  names(data_useful)[2] = "n"
-  my_star = tibble(stars = c(1:5), n = rep(0, 5))
-  data_useful2 <- rbind(data_useful, my_star) %>%
-    group_by(stars) %>%
-    summarise(n = max(n)) %>%
-    mutate(xx = n/counts) %>%
-    mutate(xx = xx/sum(xx))
-  if(is.na(var(data_useful2$xx))){
-    return(0)
-  }else{
-    return(var(data_useful2$xx))
+myvar = function(data, counts){
+  data2 = as.numeric(data[2:6])
+  for(i in 1:5){
+    data2[i] = data2[i]/counts[i]
   }
+  data2 = data2/sum(data2)
+  return(var(data2))
 }
 
 
@@ -72,14 +63,11 @@ n1 = nrow(test)
 
 # feature -----------------------------------------------------------------
 
-features = read_csv("../../data/feature.csv")
+features = read_csv("../../data/feature100.csv")
 major <- features %>%
   select(word)
 
-# threshold ---------------------------------------------------------------
 
-# my_sh = c(1.45, 2.92, 3.6, 4.15)
-my_sh = c(1.314392, 3.028014, 3.541586, 4.148861)
 
 
 # fit model ---------------------------------------------------------------
@@ -91,10 +79,20 @@ tidy_train <- train %>%
 t2 = Sys.time()
 print(t2-t1)
 t2 = Sys.time()
+word_en = apply(tidy_train[,3], 1, gsub, pattern = "[^a-zA-Z]", replacement = "")
+tidy_train$word = word_en
+print(Sys.time()-t2)
+t2 = Sys.time()
 tidy_test <- test %>%
   unnest_tokens(word, text)
 t3 = Sys.time()
 print(t3-t2)
+# t2 = Sys.time()
+# word_en = apply(tidy_test[,3], 1, gsub, pattern = "[^a-zA-Z]", replacement = "")
+# tidy_test$word = word_en
+# print(Sys.time()-t2)
+
+
 
 tidy_train2 <- tidy_train %>%
   inner_join(major, by = "word") %>%
@@ -171,9 +169,9 @@ cv <- cv.glmnet(train_matrix[,1:n2], train_matrix[,n2+1], nfolds=5)
 
 pred <- predict(fit, test_matrix[, 1:n2], type="response", s=cv$lambda.min)
 
-my_sh = c(1.314392, 3.028014, 3.541586, 4.148861)
-my_sh = c(1.5, 2.5, 3.5, 4.5)
 
+# my_sh = c(1.5, 2.5, 3.5, 4.5)
+my_sh = c(1.573427, 2.900370, 3.400423, 4.290100)
 
 pred_new = mypred(my_sh, pred)
 
@@ -181,8 +179,8 @@ pred_new = mypred(my_sh, pred)
 result = tibble(Id = c(1:length(pred_new)),
                 Prediction1 = pred_new)
 
-write_csv(result, "/Users/Lyf/Desktop/result.csv")
+write_csv(result, "/Users/Lyf/Desktop/result100.csv")
 
 
-write_csv(tidy_train3, "/Users/Lyf/Desktop/tidy_train3.csv")
-write_csv(tidy_test3, "/Users/Lyf/Desktop/tidy_test3.csv")
+write_csv(tidy_train4, "/Users/Lyf/Desktop/tidy_train_tfidf_n100.csv")
+write_csv(tidy_test4, "/Users/Lyf/Desktop/tidy_test_tfidf_n100.csv")
