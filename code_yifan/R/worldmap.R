@@ -15,9 +15,10 @@ gg <- ggplot() +
   geom_map(data=world, map=world, aes(map_id=region), 
            color="white", fill="#7f7f7f", size=0.05, alpha=1/4) +
   geom_point(data=dat, aes(x=longitude, y=latitude, color = "red"), color = "red",
-             size=0.15, alpha=1/100) +
-  ylim(25,60) +
-  xlim(-125, 25)
+             size=1, alpha=1/100) +
+  ylim(30,60) +
+  xlim(-125, 25) +
+  ggtitle("Distribution of reviews")
 
 
 
