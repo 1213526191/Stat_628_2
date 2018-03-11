@@ -7,6 +7,8 @@
 
 Github Repository and Contents:
 
+**Since the original data and final data used for prediction is too large, we doesn't upload them.**
+
 * Code
   * `python_yifan`: Python code to clean the data.
   * `R_yifan`: build GLM model and create feature4jianmin_all.csv file.
@@ -23,5 +25,7 @@ Github Repository and Contents:
 * latex1: make pdf for the first presentation.
 * latex2: make pdf for the second presentation.
 * README
+
+
 
 
