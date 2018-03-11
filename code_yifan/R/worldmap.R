@@ -5,7 +5,7 @@ library(ggthemes) # theme_map and tableau colors
 library(tidyverse)
 
 world <- map_data("world")
-world <- world[world$region = "Antarctica",] # intercourse antarctica
+# world <- world[world$region = "Antarctica",] # intercourse antarctica
 
 dat <- read_csv("../../data/random100000.csv") 
 dat2 <- dat %>%
@@ -18,7 +18,8 @@ gg <- ggplot() +
              size=1, alpha=1/100) +
   ylim(30,60) +
   xlim(-125, 25) +
-  ggtitle("Distribution of reviews")
+  ggtitle("Distribution of reviews") +
+  theme(plot.title = element_text(hjust = 0.5),axis.title.y=element_text(vjust=-1))
 
 
 
