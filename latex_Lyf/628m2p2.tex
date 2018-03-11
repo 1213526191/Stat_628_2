@@ -12,12 +12,12 @@
 \usepgfplotslibrary{dateplot}
 
 \usepackage{xspace}
-
-\usepackage{caption}
+\usepackage[flushleft]{threeparttable}
+\usepackage{caption,booktabs}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \setbeamercolor{background canvas}{bg=white}
 \title{Yelp Data Prediction}
-\subtitle{Preliminary Analysis}
+
 % \date{\today}
 \date{}
 \author{Yifan Li, Chenlai Shi, Jianmin Chen}
@@ -30,86 +30,98 @@
 
 
 
-\begin{frame}{1.1 Introduction}
+\begin{frame}{1 Introduction and Data Cleaning}
+\textbf{Introduction}
 \begin{itemize}
 	\item Small set of informative features
 	\item Accurate predictive model
 	\item Based on about 1.5 million Yelp reviews
+\end{itemize}
+
+\textbf{Data Cleaning}
+\begin{itemize}
+	\item Modify Abbreviation and Special Symbol
+
+	\item Remove Non-English
+
+	\item Negative Sentences
+	
+	\item Remove Punctuation
 \end{itemize}
 \end{frame}
 
 
 %2---------------------------------------------------------------------------------------
 
-\begin{frame}{1.2 Data Cleaning}
 
+\begin{frame}{2 Model: LSTM}
 
+\textbf{Model}: Neural Network with 3 layers\\
 \begin{itemize}
-
-	\item[1] Modify Abbreviation and Special Symbol
-
-	\item[2] Remove Non-English
-
-	\item[3] Negative Sentences
-	
-	\item[4] Remove Punctuation
-
+	\item layer1: LSTM layer with 50 output units
+	\item layer2: Dense layer with 5 output units
+	\item layer3: Dense layer with 1 output unit
 \end{itemize}
 
-\end{frame}
-\begin{frame}{2 Model}
-\frametitle{LSTM}
-\begin{itemize}
-	\item Networks with loops in them, allowing information to persist
-	\item When users write reviews, their thoughts/scratches have persistence too
-\end{itemize}
+
+
 
 \end{frame}
 
-\begin{frame}{2 Model}
-\framesubtitle{Parameters}
-\begin{itemize}
-	\item Input node: 100
-	\item Output node: 50
-	\item Dense layer: 2
-\end{itemize}
-\end{frame}
 
-\begin{frame}{2 Model}
+\begin{frame}{2 Model: LSTM}
 	\centering
 	\includegraphics[scale=0.4]{../image/learning_curve.png}
 \end{frame}
 
-\begin{frame}{Features-Part I}
-\frametitle{Doc2vec}
-\begin{itemize}
-	\item Sentence embeddings
-	\item Extension of word2vec
-\end{itemize}
+\begin{frame}{2.1 Doc2vec}
+Model Features\\
+Pre-trained Sentence Vectors: Capture word counts and order
+\newline
+Additional  Variables: Capture sentiment, review date and location
+\centering
+\includegraphics[scale=0.4]{../image/embedding.png}
+
+
 \end{frame}
 
 
-\begin{frame}{2.2 Additional Variable}
+\begin{frame}{2.2 Additional Variables}
 
 \begin{itemize}
 	\item[-] \textbf{year}: scaled year variable.
 	
 	\item[-] \textbf{loc1}: 1 if the restaurant is in the western United States, otherwise 0.
 	
-	\item[-] \textbf{loc2}: 1 if the restaurant is in the estern United States, otherwise 0.
+	\item[-] \textbf{loc2}: 1 if the restaurant is in the eastern United States, otherwise 0.
 	
 	\item[-] \textbf{loc3}: 1 if the restaurant isn't in the United States, otherwise 0.
 	
 \end{itemize}
+
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.4]{../image/worldmap.png}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\includegraphics[width=5.4cm,height=2.7cm]{../image/year.png}
+
+\end{minipage}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=5.4cm,height=2.7cm]{../image/worldmap.png}
+
+\end{minipage}
+\end{figure}
+
 \end{frame}
 
 
-\begin{frame}{2.2 Additional Variable}
+\begin{frame}{2.2 Additional Variables}
 
 \begin{itemize}
-\item[-] \textbf{S1 $\sim$ S5}: S1[word] = $\frac{\text{P(this word is included in reviews with 1 star)}}{\text{P(this word is included in reviews with other stars)}}$
+\item[-] \textbf{Score1$\sim$5}: Score1[word] = $\frac{\text{P(this word is included in reviews with 1-star)}}{\text{P(this word is included in reviews with other stars)}}$\\
+\item[-] \textbf{S1 $\sim$ S5}: S1[review] = \# of words with high Score1 in the review.
 \end{itemize}
 
 \begin{table}[ht]
@@ -122,15 +134,15 @@
 	\hline % inserts single horizontal line
 	\textbf{refund}         & frequence   & 115    & 15     & 7      & 4      & 2      \\
 	& probability & 0.011  & 0.002  & 0      & 0      & 0      \\
-	& S1 $\sim$ S5     & 34.200 & 1.080  & 0.300  & 0.072  & 0.025  \\
+	& Score     & 34.200 & 1.080  & 0.300  & 0.072  & 0.025  \\
 	\hline
 	\textbf{notdisappoints} & frequence   & 0      & 2      & 5      & 43     & 110   \\
 	& probability & 0      & 0      & 0      & 0.002  & 0.003  \\
-	& S1 $\sim$ S5     & 0      & 0.116  & 0.188  & 0.917  & 3.870  \\
+	& Score     & 0      & 0.116  & 0.188  & 0.917  & 3.870  \\
 	\hline
 	\textbf{and}            & frequence   & 9196   & 8691   & 12851  & 25604  & 32071  \\
 	& probability & 0.859  & 0.886  & 0.877  & 0.895  & 0.886  \\
-	& S1 $\sim$ S5     & 0.968  & 1.000  & 0.991  & 1.020  & 1.000  \\
+	& Score     & 0.968  & 1.000  & 0.991  & 1.020  & 1.000  \\
 	
 	\hline %inserts single line
 \end{tabular}
@@ -139,7 +151,7 @@
 
 \end{frame}
 
-\begin{frame}{2.2 Additional Variable}
+\begin{frame}{2.2 Additional Variables}
 \begin{figure}[htbp]
 \centering
 \begin{minipage}[t]{0.5\textwidth}
@@ -156,11 +168,11 @@
 \end{frame}
 
 % 3-----------------------------------------------------------------------------------
-\begin{frame}{3 Compare RMSE with other method}
+\begin{frame}{3 Compare MSE with other method}
 
 \begin{table}[]
 \centering
-\caption*{\huge{RMSE}}
+\caption*{\huge{MSE} }
 
 \begin{tabular}{lrrrrrr}
 Feature$\backslash$ Model &LM    & NB &NN  &LSTM  &GLM  & SVM \\
@@ -171,8 +183,13 @@ additional            & \textbf{0.836}    & 1.459  & 0.614   & 0.612  & 0.894   
 frequence     & NA & 1.126  & 1.210   & NA  & 0.864    & 0.790  \\
 tf-idf        & 0.889 & 1.114 & 0.804   & NA  & 0.836    & 0.770  \\
 \hline
+
 \end{tabular}
-\label{table:nonlin} 
+\begin{tablenotes}
+	\small
+	\item tested on 100000 data
+\end{tablenotes}
+
 \end{table}
 
 \end{frame}
