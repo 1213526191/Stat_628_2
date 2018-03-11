@@ -1,0 +1,272 @@
+---
+title: "Untitled"
+author: "Jianmin Chen"
+date: "2018??2??27??"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(gridExtra)
+library(tidyverse)
+library(grid)
+library(lubridate)
+```
+
+### plot for count for each names
+```{r}
+yelp = read_csv('train_data.csv')
+vname = tolower(yelp$name)
+yelp$name = vname
+yelp %>% group_by(name) %>% summarise(count=n()) %>% ggplot(aes(count))+geom_histogram(bins=20)+xlim(0,300)+theme(text = element_text(size=15),plot.title = element_text(hjust = 0.5))+ggtitle('Histogram: number of reviews for single store')+ylab('number of stores')+xlab('number of reviews')
+a = yelp %>% group_by(name) %>% summarise(count=n())
+summary(a)
+```
+
+
+### plot for difference between years
+```{r}
+date = as.data.frame(yelp$date)
+summary(date)
+
+date = apply(date,1,FUN=year)
+yelp %>% select(date,stars) %>% filter(date%in%seq(2009,2016)) %>%    ggplot(aes(stars))+geom_bar() + facet_wrap(~date,nrow=2) +ylab('review numbers')+
+  ggtitle('Distribution of Rating in Different Year')+theme_gray()+theme(plot.title = element_text(hjust = 0.5),axis.title.y=element_text(vjust=-1))
+```
+
+### plot for city
+```{r}
+yelp = read_csv('train_data.csv')
+sum(is.na(yelp))
+yelp = yelp %>% select(stars,city)
+yelp2 = yelp %>% group_by(city) %>% summarise(count=n()) 
+quantile(yelp2$count,0.5)
+yelp2
+length(unique(yelp$city))
+length(unique(yelp$name))
+length(unique(yelp$latitude))
+length(unique(yelp$longitude))
+yelp %>% filter(city=='Aspinwall') %>% group_by(stars) %>% summarise(count=n()) %>% ggplot(aes(stars,count))+geom_bar(stat='identity')
+```
+
+
+### deal with categories
+```{r}
+library(rjson)
+json_data <- fromJSON(file='categories.json')
+parent = NULL
+for(i in 1:length(json_data)){
+  parent = c(parent,unlist(json_data[[i]]$parents))
+}
+parent_unq = unique(parent)
+ctable = matrix(0,1539,2)
+json_data[[745]]$parents='nightlife'
+json_data[[909]]$parents='nightlife'
+json_data[[1309]]$parents='eventservices'
+json_data[[1336]]$parents='fitness'
+for(i in 1:length(json_data)){
+  c1 = unlist(json_data[[i]]$title)
+  if(length(json_data[[i]]$parents)>1){
+    c2 = unlist(json_data[[i]]$parents[2])
+  }else{
+    c2 = c2 = unlist(json_data[[i]]$parents)
+  }
+  
+  ctable[i,] = c(c1,c2)
+}
+ctable = as.data.frame(ctable,stringsAsFactors=FALSE)
+colnames(ctable)=c('title','category')
+```
+
+Have smaller number of categories
+```{r}
+nightbar=c('bars','breweries','nightlife','Nightlife')
+beauty=c('Beauty & Spas','Beauty & Spa','beautysvc','fashion','hair','hairremoval','othersalons','skincare')
+entertainment=c('adultentertainment','c_and_mh','cafes','cannabis_clinics','festivals','flowers','Mass Media','massmedia','media','movietheaters','social_clubs','wineries')
+shopping=c('Shopping','shopping','wholesalers')
+service=c('dentalhygienists','dentists','diagnosticservices','Financial Services','financialservices','funeralservices','insurance','itservices','junkremovalandhauling','lawyers','legalservices','medcenters','nonprofit','opthamalogists','opticians','physicians','Public Services & Government','publicservicesgovt','realestate','realestateagents','realestatesvcs','estateplanning')
+
+public=c('airports','farms','hotels','Hotels & Travel','hotelstravel','localflavor','parks','tours','transport','travelservices','zoos')
+homeservice=c('eventservices','Event Planning & Services','gardening','Home Services','homeandgarden','homeservices','kitchenandbath','landscaping','laundryservices','partyequipmentrentals','tanning','utilities')
+localservices=c('localservices','Local Services','pet_sitting','pets','Pets','petservices','petstore','photographers','plumbing')
+  
+  
+
+sports=c('active','Active Life','diving','fitness','gyms','health','Health & Medical','martialarts','sportgoods','sportswear','tcm')
+country=c('arabian','african','belgian','brazilian','caribbean','chinese','french','german','italian','japanese','latin','malaysian','mediterranean','mexican','mexican','polish','portuguese','spanish','turkish','mideastern')
+art=c('artclasses','arts','Arts','artsandcrafts','medicalspa','museums','musicinstrumentservices','psychic_astrology','Religious Organizations','religiousorgs','Arts & Entertainment')
+auto=c('auto','autorepair','autoglass','DIY Auto Shop','Automotive','bicycles','Bicycles','plumbing','professional','Professional Services')
+food=c('donburi','food','Food','gourmet','jpsweets','Local Flavor','restaurants','Restaurants')
+school=c('education','Education','specialtyschools','tastingclasses')
+cate = list(nightbar=nightbar,beauty=beauty,entertainment=entertainment,shopping=shopping,service=service,public=public,homeservice=homeservice,localservices=localservices,sports=sports,country=country,art=art,auto=auto,food=food,school=school)
+```
+
+convert 150+ categories to 14 categories
+```{r}
+getcate = function(s){
+  for(i in 1:length(cate)){
+    if(s %in% cate[[i]]){
+      cnew = names(cate[i])
+      return(cnew)
+    }
+  }
+  return(s)
+}
+ctable2 = data.frame(ctable$category)
+cnew = NULL
+for (i in 1:nrow(ctable2)){
+  cnew = c(cnew,getcate(ctable2[i,]))
+}
+table(cnew) 
+
+ctable$category = cnew
+```
+
+get title for each 14 groups
+```{r}
+ctable %>% group_by(category) %>% summarise(count=n())
+```
+
+```{r}
+art = tolower(as.vector((ctable %>% filter(category=='art') %>% select(title))[['title']]))
+auto = tolower(as.vector((ctable %>% filter(category=='auto') %>% select(title))[['title']]))
+beauty = tolower(as.vector((ctable %>% filter(category=='beauty') %>% select(title))[['title']]))
+country = tolower(as.vector((ctable %>% filter(category=='country') %>% select(title))[['title']]))
+entertainment = tolower(as.vector((ctable %>% filter(category=='entertainment') %>% select(title))[['title']]))
+food = tolower(as.vector((ctable %>% filter(category=='food') %>% select(title))[['title']]))
+homeservice = tolower(as.vector((ctable %>% filter(category=='homeservice') %>% select(title))[['title']]))
+localservice = tolower(as.vector((ctable %>% filter(category=='localservice') %>% select(title))[['title']]))
+nightbar = tolower(as.vector((ctable %>% filter(category=='nightbar') %>% select(title))[['title']]))
+chool = tolower(as.vector((ctable %>% filter(category=='school') %>% select(title))[['title']]))
+service = tolower(as.vector((ctable %>% filter(category=='service') %>% select(title))[['title']]))
+shopping = tolower(as.vector((ctable %>% filter(category=='shopping') %>% select(title))[['title']]))
+sports = tolower(as.vector((ctable %>% filter(category=='sports') %>% select(title))[['title']]))
+public = tolower(as.vector((ctable %>% filter(category=='public') %>% select(title))[['title']]))
+```
+
+
+convert category
+```{r}
+yelp = read_csv('random100000.csv')
+old_cate = yelp$categories
+stars = yelp$stars
+remove(yelp)
+new = gsub(pattern = "\\[", replacement = "", x = old_cate)
+new = gsub(pattern = "\\]", replacement = "", x = new)
+new = gsub(pattern = "\\'", replacement = "", x = new)
+new = as.data.frame(new)
+new = apply(new,1,FUN=tolower)
+new = as.data.frame(new)
+getsplit = function(x){
+  x=c(unlist(strsplit(x,split=", ")))
+  return(x)
+}
+new = apply(new,1,FUN=getsplit)
+new[1]
+```
+
+convert to new category
+```{r}
+namelist = c('art','auto','beauty','country','entertainment','food','homeservice','localservice','nightbar','school','service','shopping','sports','public','cate_length')
+
+newcate = data.frame()
+getcate = function(old){
+  oldlist = c(unlist(old))
+  new = rep(0,15)
+  if (sum(oldlist%in%art)>0){
+    new[1] = 1
+  }
+  if (sum(oldlist%in%auto)>0){
+    new[2] = 1
+  }
+  if (sum(oldlist%in%beauty)>0){
+    new[3]=1
+  }
+  if (sum(oldlist%in%country)>0){
+    new[4]=1
+  }
+  if (sum(oldlist%in%entertainment)>0){
+    new[5]=1
+  }
+  if (sum(oldlist%in%food)>0){
+    new[6]=1
+  }
+  if (sum(oldlist%in%homeservice)>0){
+    new[7]=1
+  }
+  if (sum(oldlist%in%localservice)>0){
+    new[8]=1
+  }
+  if (sum(oldlist%in%nightbar)>0){
+    new[9]=1
+  }
+  if (sum(oldlist%in%school)>0){
+    new[10]=1
+  }
+  if (sum(oldlist%in%service)>0){
+    new[11]=1
+  }
+  if (sum(oldlist%in%shopping)>0){
+    new[12]=1
+  }
+  if (sum(oldlist%in%sports)>0){
+    new[13]=1
+  }
+  if (sum(oldlist%in%public)>0){
+    new[14]=1
+  }
+  new[15] = length(oldlist)
+  return(new)
+}
+catelist = lapply(new,FUN=getcate)
+catelist[[1]]
+#end at 202222
+for(i in 1:length(stars)){
+  newcate = rbind(newcate,catelist[[i]])
+}
+colnames(newcate) = namelist
+newcate = newcate[,-6]
+newcate$stars=stars
+```
+
+```{r}
+write_csv(newcate,'random1000001.csv')
+```
+
+```{r}
+newcate1 = newcate
+nall = newcate1 %>% group_by(stars) %>% summarise(count=n())
+scalecount = function(ori){
+  for(i in 1:length(ori)){
+    ori[i] = ori[i]/nall$count[i]
+  }
+  return(ori)
+}
+colnames(newcate1)
+p1 = newcate1 %>% filter(school==1) %>% group_by(stars) %>% summarise(count=n()) %>%  mutate(scalen=round(scalecount(count)*1500000)) %>% ggplot(aes(stars,scalen))+geom_bar(stat='identity')+theme_bw()+ggtitle('Rating Distribution: School')+theme(text = element_text(size=15),plot.title = element_text(hjust = 0.5))+ylab('scaled counts')
+
+p2 = newcate1 %>% filter(beauty==1) %>% group_by(stars) %>% summarise(count=n()) %>%  mutate(scalen=round(scalecount(count)*15000000)) %>% ggplot(aes(stars,scalen))+geom_bar(stat='identity')+theme_bw()+ggtitle('Rating Distribution: Beauty')+theme(text = element_text(size=15),plot.title = element_text(hjust = 0.5),axis.title.y=element_blank())+ylab('scaled counts')
+
+p3 = newcate1 %>% filter(auto==1) %>% group_by(stars) %>% summarise(count=n()) %>%  mutate(scalen=round(scalecount(count)*15000000)) %>% ggplot(aes(stars,scalen))+geom_bar(stat='identity')+theme_bw()+ggtitle('Rating Distribution: Auto')+theme(text = element_text(size=15),plot.title = element_text(hjust = 0.5),axis.title.y=element_blank())+ylab('scaled counts')
+
+grid.arrange(p1,p2,p3,ncol = 3)
+
+
+newcate1 %>% filter(auto==1) %>% group_by(stars) %>% summarise(count=n()) %>%  mutate(scalen=round(scalecount(count)*100000)) %>% ggplot(aes(stars,scalen))+geom_bar(stat='identity')
+```
+
+
+create submission
+```{r}
+pred = read_csv('pre.csv')
+pred = pred[2:1016665,]
+hist(pred$`0`)
+pred$`0`[which(pred$`0`>5)]=5
+pred$`0`[which(pred$`0`<1)]=1
+hist(pred$`0`)
+final = data.frame('Id'=seq(1,1016664),'Prediction1'=pred$`0`)
+write.table(final,'firstpre5.csv',col.names = TRUE,row.names = FALSE,sep=",")
+a=read.csv('firstpre.csv')
+```
+
+
