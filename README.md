@@ -20,6 +20,7 @@ Github Repository and Contents:
   * categories.json: list of categorical variable.
 * Executive Summary
   * Executive Summary.ipynb
+  * Executive Summary.pdf
 * Image
   * Images that are later used in two presentations.
 * latex1: make pdf for the first presentation.
