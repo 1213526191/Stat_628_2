@@ -101,3 +101,12 @@ result <- result %>%
 
 filename = paste("feature4jianmin_all.csv")
 write_csv(result, filename)
+
+result %>%
+  arrange(desc(V1))
+
+data_tidy3[which(data_tidy3$word %in% "refund"),][2:6]/mycount
+result[which(result$word %in% "and"),]
+
+
+
