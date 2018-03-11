@@ -1,0 +1,90 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{xeCJK}
+\usepackage{amsmath}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\setbeamercolor{background canvas}{bg=white}
+\title{Yelp Data Prediction}
+\subtitle{Preliminary Analysis}
+% \date{\today}
+\date{}
+\author{Yifan Li, Chenlai Shi, Jianmin Chen}
+\institute{Monday Group 1}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\begin{document}
+
+\maketitle
+
+
+
+\begin{frame}{Introduction}
+\begin{itemize}
+	\item Small set of informative features
+	\item Accurate predictive model
+	\item Based on about 1.5 million Yelp reviews
+\end{itemize}
+\end{frame}
+
+
+%2---------------------------------------------------------------------------------------
+
+\begin{frame}{Data Cleaning}
+
+
+\begin{itemize}
+
+	\item[1] Modify Abbreviation and Special Symbol
+
+	\item[2] Remove Non-English
+
+	\item[3] Negative Sentences
+	
+	\item[4] Remove Punctuation
+
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+%2.1----------------------------------------------------------------------------------------
+
+\begin{frame}{Features-Part I}
+\frametitle{Doc2vec}
+\begin{itemize}
+	\item Sentence embeddings
+	\item Extension of word2vec
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Features-Part II}
+content...
+\end{frame}
+\begin{frame}{Model}
+\frametitle{LSTM}
+\begin{itemize}
+	\item Networks with loops in them, allowing information to persist
+	\item When users write reviews, their thoughts/scratches have persistence too
+\end{itemize}
+\framesubtitle{Parameters}
+\begin{itemize}
+	\item Input node: 100
+	\item Output node: 50
+	\item Dense layer: 2
+\end{itemize},
+\end{frame}
+\begin{frame}
+\Huge{\centerline{Thank You!}}
+\end{frame}
+\end{document}
