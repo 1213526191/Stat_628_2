@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  10 MAR 2018 22:17
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.20)  11 MAR 2018 13:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**628m2.tex
-(./628m2.tex
+**628m2p2.tex
+(./628m2p2.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/beamer/beamer.cls
@@ -1786,7 +1786,10 @@ ts.dateplot.code.tex
 tex
 File: pgfcalendar.code.tex 2007/07/23 v3.0.1a (rcs-revision 1.11)
 \pgfcalendarcurrentjulian=\count294
-))) (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
+))) (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
@@ -1805,9 +1808,6 @@ Package caption Info: beamer document class.
 Package caption Info: hyperref package is loaded.
 Package caption Info: Hyperref support is turned off
 (caption)             because hyperref has stopped early.
-)
-(/usr/local/texlive/2016/texmf-dist/tex/latex/tools/xspace.sty
-Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/beamertheme-metropolis/pgfplotsth
 emetol.sty
@@ -1845,12 +1845,12 @@ echnical note
 . <->"[FandolHei-Bold.otf]/OT:"
 . - 'bold small caps'  (bx/sc) with NFSS spec.: 
 .................................................
-(./628m2.aux
+(./628m2p2.aux
 
 LaTeX Warning: Label `table:nonlin' multiply defined.
 
 )
-\openout1 = `628m2.aux'.
+\openout1 = `628m2p2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
@@ -1927,9 +1927,9 @@ LaTeX Info: Redefining \ref on input line 27.
 LaTeX Info: Redefining \pageref on input line 27.
 LaTeX Info: Redefining \nameref on input line 27.
 
-(./628m2.out) (./628m2.out)
+(./628m2p2.out) (./628m2p2.out)
 \@outlinefile=\write5
-\openout5 = `628m2.out'.
+\openout5 = `628m2p2.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 27.
@@ -2005,104 +2005,178 @@ enefit from \pgfplotsset{compat=1.13} (current compat level: 1.9).
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-(./628m2.nav)
+(./628m2p2.nav)
 Overfull \vbox (13.79993pt too high) detected at line 29
  []
 
 [1
 
 ]
-File: ../image/worldmap.png Graphic file (type QTm)
- <use  "../image/worldmap.png" >
-Overfull \hbox (0.4pt too wide) in paragraph at lines 45--45
+Overfull \hbox (0.4pt too wide) in paragraph at lines 39--39
 [][]  
  []
 
 [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 79.
- (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 79.
-
-(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <10> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 79.
-LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <7> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 79.
-LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <5> not available
-(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 79.
-
-*************************************************
-* fontspec warning: "addfontfeatures-ignored"
-* 
-* \addfontfeature(s) ignored on line 79; it cannot be used with a font that
-* wasn't selected by a fontspec command.
-* 
-* The current font is "\EU1/lmss/m/n/5 ".
-* The requested feature is "Numbers={Monospaced}".
-*************************************************
-
-Overfull \hbox (13.03024pt too wide) in paragraph at lines 79--79
- [] 
- []
-
-
-Overfull \hbox (0.4pt too wide) in paragraph at lines 79--79
+Overfull \hbox (0.4pt too wide) in paragraph at lines 59--59
 [][]  
  []
 
 [3
 
 ]
-*************************************************
-* fontspec warning: "addfontfeatures-ignored"
-* 
-* \addfontfeature(s) ignored on line 101; it cannot be used with a font that
-* wasn't selected by a fontspec command.
-* 
-* The current font is "\EU1/lmss/m/n/20.74 ".
-* The requested feature is "Numbers={Monospaced}".
-*************************************************
-
-Overfull \hbox (0.4pt too wide) in paragraph at lines 101--101
+Overfull \hbox (0.4pt too wide) in paragraph at lines 67--67
 [][]  
  []
 
 [4
 
 ]
+Overfull \hbox (0.4pt too wide) in paragraph at lines 76--76
+[][]  
+ []
+
+[5
+
+]
+File: ../image/learning_curve.png Graphic file (type QTm)
+ <use  "../image/learning_curve.png" >
+Overfull \hbox (0.4pt too wide) in paragraph at lines 81--81
+[][]  
+ []
+
+[6
+
+]
+Overfull \hbox (0.4pt too wide) in paragraph at lines 89--89
+[][]  
+ []
+
+[7
+
+]
+File: ../image/worldmap.png Graphic file (type QTm)
+ <use  "../image/worldmap.png" >
+Overfull \hbox (0.4pt too wide) in paragraph at lines 106--106
+[][]  
+ []
+
+[8
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 140.
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 140.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <10> not available
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 140.
+
+LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <7> not available
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 140.
+
+LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <5> not available
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 140.
+
+
+*************************************************
+* fontspec warning: "addfontfeatures-ignored"
+* 
+* \addfontfeature(s) ignored on line 140; it cannot be used with a font that
+* wasn't selected by a fontspec command.
+* 
+* The current font is "\EU1/lmss/m/n/5 ".
+* The requested feature is "Numbers={Monospaced}".
+*************************************************
+
+Overfull \hbox (13.03024pt too wide) in paragraph at lines 140--140
+ [] 
+ []
+
+
+Overfull \hbox (0.4pt too wide) in paragraph at lines 140--140
+[][]  
+ []
+
+[9
+
+]
+File: ../image/dist5.png Graphic file (type QTm)
+ <use  "../image/dist5.png" >
+File: ../image/dist1.png Graphic file (type QTm)
+ <use  "../image/dist1.png" >
+Overfull \hbox (0.4pt too wide) in paragraph at lines 156--156
+[][]  
+ []
+
+[10
+
+]
+*************************************************
+* fontspec warning: "addfontfeatures-ignored"
+* 
+* \addfontfeature(s) ignored on line 178; it cannot be used with a font that
+* wasn't selected by a fontspec command.
+* 
+* The current font is "\EU1/lmss/m/n/20.74 ".
+* The requested feature is "Numbers={Monospaced}".
+*************************************************
+
+Overfull \hbox (0.4pt too wide) in paragraph at lines 178--178
+[][]  
+ []
+
+[11
+
+]
+Overfull \hbox (0.4pt too wide) in paragraph at lines 190--190
+[][]  
+ []
+
+[12
+
+]
+Overfull \hbox (0.4pt too wide) in paragraph at lines 201--201
+[][]  
+ []
+
+[13
+
+] [14
+
+]
 \tf@nav=\write6
-\openout6 = `628m2.nav'.
+\openout6 = `628m2p2.nav'.
 
 \tf@toc=\write7
-\openout7 = `628m2.toc'.
+\openout7 = `628m2p2.toc'.
 
 \tf@snm=\write8
-\openout8 = `628m2.snm'.
+\openout8 = `628m2p2.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 103.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 103.
- (./628m2.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 103.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 103.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 206.
+ (./628m2p2.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 206.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 206.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 103.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 206.
  ) 
 Here is how much of TeX's memory you used:
- 49120 strings out of 493591
- 1107245 string characters out of 6143546
- 1233370 words of memory out of 5000000
- 51771 multiletter control sequences out of 15000+600000
- 6772 words of font info for 47 fonts, out of 8000000 for 9000
+ 49154 strings out of 493591
+ 1107760 string characters out of 6143546
+ 1233372 words of memory out of 5000000
+ 51801 multiletter control sequences out of 15000+600000
+ 6780 words of font info for 48 fonts, out of 8000000 for 9000
  1347 hyphenation exceptions out of 8191
- 71i,13n,96p,10418b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,13n,96p,10420b,737s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 628m2.pdf (4 pages).
+Output written on 628m2p2.pdf (14 pages).
