@@ -4,7 +4,7 @@ library(Matrix)
 library(topicmodels)
 library(glmnet) 
 
-data_ori = read_csv("/Users/Lyf/OneDrive/study/WISC/2017_spring/Stat_628/hw2/trash/train_en3.csv")
+data_ori = read_csv("../../data/random100000w.csv")
 
 data_df = data_frame(line = 1:nrow(data_ori),
                      text = data_ori$text, 
